@@ -1,6 +1,6 @@
 # StudyTrack: AI-Based Student Study Habit Recommendation System
 
-StudyTrack analyzes a student's study habits, lifestyle, and performance data to generate personalized, data-backed recommendations and a day-by-day study plan — built on real patterns mined from an 80,000-student dataset, not generic advice.
+StudyTrack analyzes a student's study habits, lifestyle, and performance data to generate personalized, data-backed recommendations and a day-by-day study plan built on real patterns mined from an 80,000-student dataset, not generic advice.
 
 ##  Project Status: In Development (Day 4/10)
 
