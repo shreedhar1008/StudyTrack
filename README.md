@@ -20,7 +20,6 @@ StudyTrack analyzes a student's study habits, lifestyle, and performance data to
 - **Deployment:** Render + Streamlit Cloud
 
 ## Project Structure
-
 ```text
 studytrack/
 ├── data/       # Raw and cleaned datasets
@@ -29,6 +28,7 @@ studytrack/
 ├── src/        # Reusable Python modules (recommendation engine, etc.)
 ├── backend/    # FastAPI backend (coming soon)
 └── frontend/   # Streamlit frontend (coming soon)
+```
 
 ## Author
-Shreedhar Shiragur  
+Shreedhar Shiragur
