@@ -1,0 +1,14 @@
+[33mcommit d1c7c619199b85ff5c10bd8394cbea225f3b1c95[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: rshashank-r <shreedhar6338@gmail.com>
+Date:   Wed Aug 5 22:41:54 2026 +0530
+
+    Day 3: Exam score prediction models, risk assessment module, and data leakage analysis
+
+ .gitignore                             |   5 [32m+[m
+ models/exam_score_predictor_full.pkl   | Bin [31m0[m -> [32m2951602[m bytes
+ models/exam_score_predictor_habits.pkl | Bin [31m0[m -> [32m3815675[m bytes
+ models/feature_columns.json            |  57 [32m+++[m
+ models/label_encoders.pkl              | Bin [31m0[m -> [32m3360[m bytes
+ notebooks/04_model_training.ipynb      | 717 [32m+++++++++++++++++++++++++++++++++[m
+ src/risk_assessor.py                   |  43 [32m++[m
+ 7 files changed, 822 insertions(+)
