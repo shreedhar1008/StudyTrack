@@ -21,15 +21,14 @@ StudyTrack analyzes a student's study habits, lifestyle, and performance data to
 
 ## Project Structure
 
-​```
+```text
 studytrack/
-├── data/           # Raw and cleaned datasets
-├── models/         # Trained ML models and artifacts
-├── notebooks/      # Analysis and model development notebooks
-├── src/            # Reusable Python modules (recommendation engine, etc.)
-├── backend/        # FastAPI backend (coming soon)
-├── frontend/       # Streamlit frontend (coming soon)
-​```
+├── data/       # Raw and cleaned datasets
+├── models/     # Trained ML models and artifacts
+├── notebooks/  # Analysis and model development notebooks
+├── src/        # Reusable Python modules (recommendation engine, etc.)
+├── backend/    # FastAPI backend (coming soon)
+└── frontend/   # Streamlit frontend (coming soon)
 
 ## Author
 Shreedhar Shiragur  
