@@ -1,8 +1,8 @@
-# StudyTrack — AI-Based Student Study Habit Recommendation System
+# StudyTrack: AI-Based Student Study Habit Recommendation System
 
 StudyTrack analyzes a student's study habits, lifestyle, and performance data to generate personalized, data-backed recommendations and a day-by-day study plan — built on real patterns mined from an 80,000-student dataset, not generic advice.
 
-## 🚧 Project Status: In Development (Day 4/10)
+##  Project Status: In Development (Day 4/10)
 
 ## Features (so far)
 - Data-driven clustering of students into 5 behavioral profiles
@@ -21,13 +21,15 @@ StudyTrack analyzes a student's study habits, lifestyle, and performance data to
 
 ## Project Structure
 
+​```
 studytrack/
-├── data/ # Raw and cleaned datasets
-├── models/ # Trained ML models and artifacts
-├── notebooks/ # Analysis and model development notebooks
-├── src/ # Reusable Python modules (recommendation engine, etc.)
-├── backend/ # FastAPI backend (coming soon)
-├── frontend/ # Streamlit frontend (coming soon)
+├── data/           # Raw and cleaned datasets
+├── models/         # Trained ML models and artifacts
+├── notebooks/      # Analysis and model development notebooks
+├── src/            # Reusable Python modules (recommendation engine, etc.)
+├── backend/        # FastAPI backend (coming soon)
+├── frontend/       # Streamlit frontend (coming soon)
+​```
 
 ## Author
 Shreedhar Shiragur  
