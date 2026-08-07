@@ -31,6 +31,22 @@ _IMPORTANCE_WEIGHTS = {
     'exam_anxiety_score': 0.040, 'exercise_frequency': 0.036
 }
 
+# Minimum gap size to be considered meaningful (not just statistical noise).
+# Values are on each feature's natural scale (e.g., stress_level is 1-10).
+_MIN_MEANINGFUL_GAP = {
+    'study_hours_per_day': 0.5,      # half an hour or more
+    'stress_level': 1.0,             # 1+ point on a 10-point scale
+    'sleep_hours': 0.5,
+    'attendance_percentage': 5.0,    # 5+ percentage points
+    'motivation_level': 1.0,
+    'time_management_score': 1.0,
+    'screen_time': 1.0,
+    'netflix_hours': 0.5,
+    'social_media_hours': 0.5,
+    'exam_anxiety_score': 1.0,
+    'exercise_frequency': 1.0
+}
+
 _TEMPLATES = {
     'study_hours_per_day': {'label': 'Study Time',
         'text': "You're studying about {gap:.1f} fewer hours per day than top performers in your peer group. Even a modest increase — say, one focused 45-minute block — tends to compound over a semester."},
@@ -82,7 +98,8 @@ def compute_gaps(student_habits: dict, cluster_id: int) -> dict:
 def generate_recommendations(gaps: dict, top_n: int = 4) -> list:
     scored_gaps = []
     for habit, gap in gaps.items():
-        if gap > 0:
+        min_threshold = _MIN_MEANINGFUL_GAP.get(habit, 0.3)
+        if gap > min_threshold:  # only flag genuinely meaningful gaps now
             weight = _IMPORTANCE_WEIGHTS.get(habit, 0.03)
             scored_gaps.append((habit, gap, gap * weight))
 
@@ -101,7 +118,6 @@ def generate_recommendations(gaps: dict, top_n: int = 4) -> list:
 
 
 def get_full_recommendation(student_habits: dict, top_n: int = 4) -> dict:
-    """Main entry point — takes a student's habit dict, returns cluster + recommendations."""
     cluster_id = assign_cluster(student_habits)
     cluster_label = _cluster_names[str(cluster_id)]
     gaps = compute_gaps(student_habits, cluster_id)
@@ -110,5 +126,6 @@ def get_full_recommendation(student_habits: dict, top_n: int = 4) -> dict:
     return {
         'cluster': cluster_label,
         'gaps': gaps,
-        'recommendations': recommendations
+        'recommendations': recommendations,
+        'is_strong_performer': len(recommendations) == 0
     }
