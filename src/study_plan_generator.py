@@ -24,45 +24,51 @@ def generate_study_plan(student_habits: dict, recommendations: list) -> dict:
 
     rec_areas = {r['area'] for r in recommendations}
 
+    # Rotate which type of work gets emphasized each weekday, so the plan doesn't feel identical daily
+    weekday_focus = {
+        'Monday': ('New material / hardest subject', 'Practice problems'),
+        'Tuesday': ('Review previous day + new material', 'Flashcards / active recall'),
+        'Wednesday': ('New material / hardest subject', 'Group study or discussion-based review'),
+        'Thursday': ('Practice problems / past papers', 'Review weak areas from this week'),
+        'Friday': ('Lighter review + consolidation', 'Wrap up any pending coursework'),
+    }
+
     plan = {}
     for i, day in enumerate(_DAYS):
         blocks = []
         is_weekend = day in ['Saturday', 'Sunday']
 
-        # Core study block — split into focused sessions rather than one long block
+        if is_weekend:
+            block1_label, block2_label = 'Weekly review of all subjects', 'Preview next week\'s material'
+        else:
+            block1_label, block2_label = weekday_focus[day]
+
         if target_study_hours <= 2:
-            blocks.append({'time': 'Evening', 'activity': f'Focused study session ({target_study_hours}h) — pick your weakest subject first'})
+            blocks.append({'time': 'Evening', 'activity': f'Focused study session ({target_study_hours}h) — {block1_label.lower()}'})
         else:
             first_block = round(target_study_hours * 0.6, 1)
             second_block = round(target_study_hours - first_block, 1)
-            blocks.append({'time': 'Afternoon', 'activity': f'Study block 1 ({first_block}h) — hardest subject, when focus is freshest'})
-            blocks.append({'time': 'Evening', 'activity': f'Study block 2 ({second_block}h) — review/practice problems'})
+            blocks.append({'time': 'Afternoon', 'activity': f'Study block 1 ({first_block}h) — {block1_label}'})
+            blocks.append({'time': 'Evening', 'activity': f'Study block 2 ({second_block}h) — {block2_label}'})
 
-        # Stress management block if flagged
         if 'Stress Management' in rec_areas:
             blocks.append({'time': 'Before study block', 'activity': '10-min breathing/walk break — lowers cortisol before you sit down to focus'})
 
-        # Exam anxiety — add practice testing on weekdays
         if 'Exam Anxiety' in rec_areas and not is_weekend:
             blocks.append({'time': 'Mid-session', 'activity': 'Timed practice questions (15-20 min) — builds exam-condition familiarity'})
 
-        # Exercise if flagged
         if 'Exercise' in rec_areas:
             blocks.append({'time': 'Morning', 'activity': '20-30 min light exercise — walk, stretch, or sport'})
 
-        # Time management — weekly planning ritual on Sunday
         if 'Time Management' in rec_areas and day == 'Sunday':
             blocks.append({'time': 'Evening', 'activity': 'Weekly planning: review upcoming deadlines, block study time in calendar'})
 
-        # Attendance reminder — subtle nudge, not preachy
         if 'Attendance' in rec_areas and not is_weekend:
             blocks.append({'time': 'Morning', 'activity': 'Attend all scheduled classes — missed classes compound faster than they feel like they do'})
 
-        # Sleep protection — always include as a guardrail, especially if flagged
         sleep_target = max(current_sleep_hours, 7.0)
         blocks.append({'time': 'Night', 'activity': f'Lights out by target time for {sleep_target}h sleep — protects memory consolidation from today\'s studying'})
 
-        # Weekend = lighter, includes rest
         if is_weekend:
             blocks.append({'time': 'Afternoon', 'activity': 'Free time / hobby / social — recovery is part of a sustainable routine, not a cheat day'})
 
