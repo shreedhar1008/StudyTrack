@@ -6,6 +6,7 @@ from src.recommendation_engine import get_full_recommendation
 from src.study_plan_generator import generate_study_plan
 from src.llm_service import generate_personalized_message, generate_plan_summary
 from src.risk_assessor import assess_student_risk
+from src.database_service import save_submission
 
 app = FastAPI(
     title="StudyTrack API",
@@ -34,12 +35,10 @@ def health_check():
 
 @app.post("/analyze", response_model=AnalysisResponse)
 def analyze_student(student: StudentInput):
-    """
-    Core endpoint: takes student habits, returns cluster, recommendations,
-    and a personalized LLM-generated message.
-    """
     try:
         habits = student.model_dump(exclude={"major"})
+        habits["major"] = student.major
+
         result = get_full_recommendation(habits)
 
         message = generate_personalized_message(
@@ -47,6 +46,10 @@ def analyze_student(student: StudentInput):
             result["recommendations"],
             {"major": student.major}
         )
+
+        risk = assess_student_risk(habits)
+
+        save_submission(habits, {**result, "personalized_message": message}, risk)
 
         return AnalysisResponse(
             cluster=result["cluster"],
