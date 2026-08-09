@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "http://127.0.0.1:8000"  # local backend for now; we'll update this after deployment
+API_URL = "https://studytrack-backend-68aq.onrender.com"
 
 st.set_page_config(page_title="StudyTrack", page_icon="📚", layout="centered")
 
