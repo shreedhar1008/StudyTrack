@@ -2,7 +2,7 @@
 
 StudyTrack analyzes a student's study habits, lifestyle, and performance data to generate personalized, data-backed recommendations and a day-by-day study plan built on real patterns mined from an 80,000-student dataset, not generic advice.
 
-##  Project Status: In Development (Day 8/10)
+##  Project Status: In Development
 
 ## Features (so far)
 - Data-driven clustering of students into 5 behavioral profiles
