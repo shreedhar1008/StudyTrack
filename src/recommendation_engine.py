@@ -37,7 +37,7 @@ _MIN_MEANINGFUL_GAP = {
     'study_hours_per_day': 0.5,      # half an hour or more
     'stress_level': 1.0,             # 1+ point on a 10-point scale
     'sleep_hours': 0.5,
-    'attendance_percentage': 5.0,    # 5+ percentage points
+    'attendance_percentage': 3.0,    # 5+ percentage points
     'motivation_level': 1.0,
     'time_management_score': 1.0,
     'screen_time': 1.0,

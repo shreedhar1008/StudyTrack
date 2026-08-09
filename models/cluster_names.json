@@ -1,7 +1,7 @@
 {
-  "0": "Efficient Achiever",
-  "1": "Anxious & Disengaged",
-  "2": "Anxious Grinder",
-  "3": "Distracted Underachiever",
-  "4": "Peak Performer"
+  "0": "Calm & Motivated - Lighter Study Load",
+  "1": "Anxious & Low-Motivation - Lighter Study Load",
+  "2": "Anxious & Low-Motivation - Heavier Study Load",
+  "3": "Anxious & Low-Motivation - High Distraction Load",
+  "4": "Calm & Motivated - Heavier Study Load"
 }

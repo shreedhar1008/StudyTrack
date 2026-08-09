@@ -64,7 +64,8 @@ if submitted:
                 st.divider()
 
                 # --- Cluster & Personalized Message ---
-                st.subheader(f"Your Profile: {analysis['cluster']}")
+                st.subheader("Your Personalized Analysis")
+                st.caption(f"Closest behavioral pattern match: *{analysis['cluster']}* (based on motivation, stress, and study habits — see specific gaps below)")
                 if analysis["is_strong_performer"]:
                     st.success(analysis["personalized_message"])
                 else:
