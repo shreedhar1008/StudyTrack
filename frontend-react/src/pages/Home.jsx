@@ -61,7 +61,7 @@ function Home({ setResults, loading, setLoading, error, setError }) {
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={loading ? 'opacity-60 pointer-events-none transition' : 'transition'}>
         <SectionLabel>Study &amp; Time</SectionLabel>
         <div className="grid grid-cols-2 gap-3">
           <StatCard label="Study Hours/Day" value={form.study_hours_per_day} onChange={update('study_hours_per_day')} step={0.5} max={24} />
@@ -98,8 +98,8 @@ function Home({ setResults, loading, setLoading, error, setError }) {
         </div>
 
         <div className="mt-6">
-          <PrimaryButton type="submit" disabled={loading}>
-            {loading ? 'Analyzing...' : '✨ Get My Personalized Analysis'}
+          <PrimaryButton type="submit" disabled={loading} loading={loading}>
+            {loading ? 'Analyzing your habits...' : '✨ Get My Personalized Analysis'}
           </PrimaryButton>
         </div>
       </form>
