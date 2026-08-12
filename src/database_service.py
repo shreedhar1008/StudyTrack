@@ -23,6 +23,7 @@ def save_submission(student_habits: dict, analysis: dict, risk: dict) -> dict:
     try:
         row = {
             "major": student_habits.get("major", "not specified"),
+            "anon_id": student_habits.get("anon_id"),
             "study_hours_per_day": student_habits.get("study_hours_per_day"),
             "social_media_hours": student_habits.get("social_media_hours"),
             "netflix_hours": student_habits.get("netflix_hours"),
@@ -61,4 +62,20 @@ def get_recent_submissions(limit: int = 10) -> list:
         return result.data
     except Exception as e:
         print(f"Database fetch failed: {e}")
+        return []
+
+def get_submissions_by_anon_id(anon_id: str, limit: int = 20) -> list:
+    """Retrieves past submissions for a specific anonymous user ID."""
+    try:
+        result = (
+            _client.table("student_submissions")
+            .select("*")
+            .eq("anon_id", anon_id)
+            .order("created_at", desc=True)
+            .limit(limit)
+            .execute()
+        )
+        return result.data
+    except Exception as e:
+        print(f"History fetch failed: {e}")
         return []

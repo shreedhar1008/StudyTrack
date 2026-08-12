@@ -16,6 +16,7 @@ class StudentInput(BaseModel):
     time_management_score: float = Field(..., ge=1, le=10)
     attendance_percentage: float = Field(..., ge=0, le=100)
     major: Optional[str] = "not specified"
+    anon_id: Optional[str] = None
 
 
 class RecommendationItem(BaseModel):

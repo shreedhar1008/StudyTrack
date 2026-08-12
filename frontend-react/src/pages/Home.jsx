@@ -5,6 +5,7 @@ import StyledSlider from '../components/StyledSlider'
 import SectionLabel from '../components/SectionLabel'
 import PrimaryButton from '../components/PrimaryButton'
 import { analyzeStudent, getStudyPlan } from '../api/studytrack'
+import { getAnonId } from '../hooks/useAnonId'
 
 function Home({ setResults, loading, setLoading, error, setError }) {
   const navigate = useNavigate()
@@ -30,7 +31,7 @@ function Home({ setResults, loading, setLoading, error, setError }) {
     setLoading(true)
     setError(null)
     try {
-      const payload = { ...form, major: form.major || 'not specified' }
+      const payload = { ...form, major: form.major || 'not specified', anon_id: getAnonId() }
       const [analysis, plan] = await Promise.all([
         analyzeStudent(payload),
         getStudyPlan(payload),

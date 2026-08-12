@@ -7,6 +7,8 @@ from src.study_plan_generator import generate_study_plan
 from src.llm_service import generate_personalized_message, generate_plan_summary
 from src.risk_assessor import assess_student_risk
 from src.database_service import save_submission
+from src.database_service import get_recent_submissions
+from src.database_service import get_submissions_by_anon_id
 
 app = FastAPI(
     title="StudyTrack API",
@@ -38,6 +40,7 @@ def analyze_student(student: StudentInput):
     try:
         habits = student.model_dump(exclude={"major"})
         habits["major"] = student.major
+        habits["anon_id"] = student.anon_id
 
         result = get_full_recommendation(habits)
 
@@ -100,3 +103,12 @@ def check_risk(student: StudentInput):
         return risk
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Risk check failed: {str(e)}")
+
+@app.get("/history/{anon_id}")
+def get_history(anon_id: str):
+    """Returns past submissions for a given anonymous user ID."""
+    try:
+        submissions = get_submissions_by_anon_id(anon_id)
+        return {"count": len(submissions), "submissions": submissions}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"History fetch failed: {str(e)}")
