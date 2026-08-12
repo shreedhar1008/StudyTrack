@@ -16,3 +16,8 @@ export async function getStudyPlan(payload) {
   const res = await client.post('/plan', payload)
   return res.data
 }
+
+export async function getHistory(anonId) {
+  const res = await client.get(`/history/${anonId}`)
+  return res.data
+}
