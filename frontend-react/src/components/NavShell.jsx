@@ -2,7 +2,7 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const navItems = [
-  { to: '/', label: 'Home', icon: '🏠' },
+  { to: '/log', label: 'Home', icon: '🏠' },
   { to: '/analysis', label: 'Analysis', icon: '📊' },
   { to: '/plan', label: 'Plan', icon: '📅' },
   { to: '/profile', label: 'Profile', icon: '👤' },
@@ -20,7 +20,7 @@ function NavShell() {
           <NavLink
             key={item.to}
             to={item.to}
-            end={item.to === '/'}
+            end={item.to === '/log'}
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-3 rounded-xl font-mono text-sm transition ${
                 isActive ? 'bg-mint/10 text-mint-bright' : 'text-muted-dark hover:bg-white/5'
@@ -54,7 +54,7 @@ function NavShell() {
           <NavLink
             key={item.to}
             to={item.to}
-            end={item.to === '/'}
+            end={item.to === '/log'}
             className={({ isActive }) =>
               `flex flex-col items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-mono ${
                 isActive ? 'text-mint-bright' : 'text-muted-dark'
