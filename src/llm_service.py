@@ -11,7 +11,7 @@ from groq import Groq
 load_dotenv()
 
 _client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-_MODEL = "llama-3.3-70b-versatile"
+_MODEL = "openai/gpt-oss-20b"
 
 def _build_prompt(cluster: str, recommendations: list, student_context: dict) -> str:
     if not recommendations:
