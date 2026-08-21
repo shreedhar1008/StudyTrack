@@ -9,6 +9,7 @@ from src.risk_assessor import assess_student_risk
 from src.database_service import save_submission
 from src.database_service import get_recent_submissions
 from src.database_service import get_submissions_by_anon_id
+from src.database_service import get_submissions_by_user_id
 
 app = FastAPI(
     title="StudyTrack API",
@@ -41,6 +42,7 @@ def analyze_student(student: StudentInput):
         habits = student.model_dump(exclude={"major"})
         habits["major"] = student.major
         habits["anon_id"] = student.anon_id
+        habits["user_id"] = student.user_id
 
         result = get_full_recommendation(habits)
 
@@ -109,6 +111,15 @@ def get_history(anon_id: str):
     """Returns past submissions for a given anonymous user ID."""
     try:
         submissions = get_submissions_by_anon_id(anon_id)
+        return {"count": len(submissions), "submissions": submissions}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"History fetch failed: {str(e)}")
+
+@app.get("/user-history/{user_id}")
+def get_user_history(user_id: str):
+    """Returns past submissions for a specific logged-in user."""
+    try:
+        submissions = get_submissions_by_user_id(user_id)
         return {"count": len(submissions), "submissions": submissions}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"History fetch failed: {str(e)}")

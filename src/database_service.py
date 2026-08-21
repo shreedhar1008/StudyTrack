@@ -41,6 +41,7 @@ def save_submission(student_habits: dict, analysis: dict, risk: dict) -> dict:
             "personalized_message": analysis.get("personalized_message"),
             "risk_level": risk.get("risk_level"),
             "risk_factors": risk.get("risk_factors"),
+            "user_id": student_habits.get("user_id"),
         }
         result = _client.table("student_submissions").insert(row).execute()
         return result.data[0] if result.data else None
@@ -78,4 +79,20 @@ def get_submissions_by_anon_id(anon_id: str, limit: int = 20) -> list:
         return result.data
     except Exception as e:
         print(f"History fetch failed: {e}")
+        return []
+
+def get_submissions_by_user_id(user_id: str, limit: int = 20) -> list:
+    """Retrieves past submissions for a specific logged-in user."""
+    try:
+        result = (
+            _client.table("student_submissions")
+            .select("*")
+            .eq("user_id", user_id)
+            .order("created_at", desc=True)
+            .limit(limit)
+            .execute()
+        )
+        return result.data
+    except Exception as e:
+        print(f"User history fetch failed: {e}")
         return []

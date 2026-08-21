@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getAnonId } from '../hooks/useAnonId'
-import { getHistory } from '../api/studytrack'
+import { useAuth } from '../hooks/useAuth'
+import { getHistory, getUserHistory } from '../api/studytrack'
 
 function formatDate(isoString) {
   const d = new Date(isoString)
@@ -11,17 +12,21 @@ function Profile() {
   const [submissions, setSubmissions] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const { user } = useAuth()
 
   useEffect(() => {
-    const anonId = getAnonId()
-    getHistory(anonId)
-      .then((data) => setSubmissions(data.submissions))
-      .catch((err) => {
-        console.error(err)
-        setError('Could not load your history.')
-      })
-      .finally(() => setLoading(false))
-  }, [])
+  const fetchHistory = user
+    ? getUserHistory(user.id)
+    : getHistory(getAnonId())
+
+  fetchHistory
+    .then((data) => setSubmissions(data.submissions))
+    .catch((err) => {
+      console.error(err)
+      setError('Could not load your history.')
+    })
+    .finally(() => setLoading(false))
+}, [user])
 
   return (
     <div className="p-6 md:p-10 max-w-2xl mx-auto pb-24 md:pb-10">

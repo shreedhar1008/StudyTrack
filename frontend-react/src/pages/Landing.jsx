@@ -49,12 +49,17 @@ function Landing() {
         className="relative flex items-center justify-between px-6 md:px-16 py-6 max-w-6xl mx-auto"
       >
         <span className="font-display font-bold text-xl text-ink">📚 StudyTrack</span>
-        <Link
-          to="/log"
-          className="font-mono text-xs tracking-wide text-mint border border-mint/40 rounded-full px-4 py-2 hover:bg-mint/10 hover:scale-105 transition-all"
-        >
-          Get Started →
+        <div className="flex items-center gap-3">
+        <Link to="/login" className="font-mono text-xs text-muted-light hover:text-ink transition">
+        Log In
         </Link>
+        <Link
+        to="/signup"
+        className="font-mono text-xs tracking-wide text-mint border border-mint/40 rounded-full px-4 py-2 hover:bg-mint/10 hover:scale-105 transition-all"
+        >
+        Sign Up →
+        </Link>
+        </div>
       </motion.div>
 
       {/* Hero */}

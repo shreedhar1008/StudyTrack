@@ -12,3 +12,13 @@ export function getAnonId() {
   }
   return id
 }
+
+const TRIAL_USED_KEY = 'studytrack_trial_used'
+
+export function hasUsedTrial() {
+  return localStorage.getItem(TRIAL_USED_KEY) === 'true'
+}
+
+export function markTrialUsed() {
+  localStorage.setItem(TRIAL_USED_KEY, 'true')
+}

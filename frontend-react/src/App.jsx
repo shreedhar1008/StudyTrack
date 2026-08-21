@@ -10,6 +10,8 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 function App() {
   const [results, setResults] = useState(null)
@@ -24,6 +26,8 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route element={<NavShell />}>
           <Route
             path="/log"

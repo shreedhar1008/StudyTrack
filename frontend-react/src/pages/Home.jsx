@@ -5,10 +5,12 @@ import StyledSlider from '../components/StyledSlider'
 import SectionLabel from '../components/SectionLabel'
 import PrimaryButton from '../components/PrimaryButton'
 import { analyzeStudent, getStudyPlan } from '../api/studytrack'
-import { getAnonId } from '../hooks/useAnonId'
+import { getAnonId, hasUsedTrial, markTrialUsed } from '../hooks/useAnonId'
+import { useAuth } from '../hooks/useAuth'
 
 function Home({ setResults, loading, setLoading, error, setError }) {
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [form, setForm] = useState({
     study_hours_per_day: 3.0,
     sleep_hours: 7.0,
@@ -30,13 +32,21 @@ function Home({ setResults, loading, setLoading, error, setError }) {
     e.preventDefault()
     setLoading(true)
     setError(null)
+        if (!user && hasUsedTrial()) {
+      setLoading(false)
+      navigate('/signup', { state: { from: '/log', trialEnded: true } })
+      return
+    }
     try {
-      const payload = { ...form, major: form.major || 'not specified', anon_id: getAnonId() }
+      const payload = { ...form, major: form.major || 'not specified', anon_id: getAnonId(), user_id: user?.id || null }
       const [analysis, plan] = await Promise.all([
         analyzeStudent(payload),
         getStudyPlan(payload),
       ])
-      setResults({ analysis, plan })
+            setResults({ analysis, plan })
+      if (!user) {
+        markTrialUsed()
+      }
       navigate('/analysis')
     } catch (err) {
       setError('Could not reach the server. The free backend may be waking up — please try again in a few seconds.')

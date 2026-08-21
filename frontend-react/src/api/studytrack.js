@@ -21,3 +21,8 @@ export async function getHistory(anonId) {
   const res = await client.get(`/history/${anonId}`)
   return res.data
 }
+
+export async function getUserHistory(userId) {
+  const res = await client.get(`/user-history/${userId}`)
+  return res.data
+}
